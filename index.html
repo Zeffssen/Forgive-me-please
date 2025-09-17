@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>I'm Sorry, My Love</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+    font-family: 'Georgia', serif;
+    background: linear-gradient(-45deg,#c44569,#f8b500,#e056fd,#ff9ff3);
+    background-size:400% 400%; animation:gradientShift 15s ease infinite;
+    min-height:100vh; overflow-x:hidden; position:relative;
+}
+@keyframes gradientShift { 0%{background-position:0% 50%;} 50%{background-position:100% 50%;} 100%{background-position:0% 50%;} }
+.hearts { position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:1; }
+.heart { position:absolute; font-size:25px; color:rgba(255,182,193,0.9); animation:floatUp 6s linear infinite; filter: drop-shadow(0 0 8px rgba(255,105,180,0.6)); }
+@keyframes floatUp { 0%{transform:translateY(100vh) rotate(0deg); opacity:1;} 100%{transform:translateY(-100px) rotate(360deg); opacity:0;} }
+.container {
+    position:relative; z-index:2; max-width:800px; margin:0 auto; padding:20px; min-height:100vh;
+    display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center;
+}
+.main-title { font-size:4rem; color:white; text-shadow:3px 3px 6px rgba(0,0,0,0.3); margin-bottom:30px; animation:bounce 2s ease-in-out infinite alternate; font-family:'Comic Sans MS',cursive; }
+@keyframes bounce { from{transform:scale(1) rotate(-2deg); filter:drop-shadow(0 0 20px rgba(255,105,180,0.8));} to{transform:scale(1.08) rotate(2deg); filter:drop-shadow(0 0 30px rgba(142,68,173,0.8));} }
+.message-box {
+    background:rgba(255,255,255,0.95); border-radius:30px; padding:40px; margin:20px 0;
+    box-shadow:0 20px 50px rgba(255,105,180,0.3), 0 0 0 3px rgba(255,182,193,0.4);
+    backdrop-filter:blur(15px); border:3px solid rgba(255,182,193,0.6); animation:float 3s ease-in-out infinite alternate;
+    position:relative; overflow:hidden;
+}
+.message-box::before {
+    content:''; position:absolute; top:-50%; left:-50%; width:200%; height:200%;
+    background:radial-gradient(circle, rgba(255,182,193,0.1) 0%, transparent 70%);
+    animation:sparkle 4s linear infinite; pointer-events:none;
+}
+@keyframes float { from{transform:translateY(0px);} to{transform:translateY(-10px);} }
+@keyframes sparkle { 0%{transform:rotate(0deg) scale(1); opacity:0.3;} 50%{transform:rotate(180deg) scale(1.2); opacity:0.6;} 100%{transform:rotate(360deg) scale(1); opacity:0.3;} }
+.message-text { font-size:1.4rem; line-height:1.6; color:#333; margin-bottom:20px; font-family:'Comic Sans MS',cursive; position:relative; z-index:2; }
+.apology-reasons { text-align:left; margin:20px 0; }
+.apology-reasons h3 { color:#e74c3c; font-size:1.3rem; margin-bottom:15px; text-align:center; font-family:'Comic Sans MS',cursive; position: relative; z-index:2; }
+.reason { background: linear-gradient(135deg,#8e44ad 0%,#c44569 100%); color:white; padding:20px; margin:15px 0; border-radius:25px; transform:translateX(-100%); animation:slideInFromLeft 1s ease-out forwards; box-shadow:0 8px 25px rgba(196,69,105,0.4); border:2px solid rgba(255,182,193,0.3); font-family:'Comic Sans MS',cursive; font-size:1.1rem; transition:all 0.3s ease; }
+.reason:hover { transform:scale(1.05) rotate(1deg); box-shadow:0 12px 30px rgba(196,69,105,0.6); }
+.reason:nth-child(2){animation-delay:0.2s;} .reason:nth-child(3){animation-delay:0.4s;} .reason:nth-child(4){animation-delay:0.6s;}
+@keyframes slideInFromLeft{ to{transform:translateX(0);} }
+.interactive-section { margin:30px 0; }
+.forgive-btn {
+    background: linear-gradient(135deg,#c44569,#8e44ad); color:white; border:none;
+    padding:18px 45px; font-size:1.4rem; border-radius:50px; cursor:pointer;
+    transition:all 0.3s ease; box-shadow:0 10px 30px rgba(196,69,105,0.4); margin:15px;
+    font-family:'Comic Sans MS',cursive; font-weight:bold; border:3px solid rgba(255,182,193,0.5); animation:wiggle 2s ease-in-out infinite;
+}
+.forgive-btn:hover { transform: translateY(-5px) scale(1.1); box-shadow:0 15px 40px rgba(196,69,105,0.6); border-color: rgba(255,182,193,0.8); }
+@keyframes wiggle { 0%,100%{transform:rotate(0deg);} 25%{transform:rotate(-2deg);} 75%{transform:rotate(2deg);} }
+.forgive-btn:active { transform: scale(0.95); }
+.hidden-message { display:none; background: linear-gradient(135deg,#f093fb,#c44569); color:white; padding:35px; border-radius:30px; margin:20px 0; font-size:1.4rem; animation:celebration 2s ease-in-out; font-family:'Comic Sans MS',cursive; border:3px solid rgba(255,182,193,0.6); box-shadow:0 15px 40px rgba(255,105,180,0.4); position:relative; overflow:hidden; }
+.hidden-message::after { content:'✨'; position:absolute; top:10px; right:15px; font-size:2rem; animation:twinkle 1.5s ease-in-out infinite alternate; }
+@keyframes twinkle { 0%{opacity:0.5; transform:scale(1);} 100%{opacity:1; transform:scale(1.3);} }
+@keyframes celebration {0%,100%{transform:scale(1);}50%{transform:scale(1.1);} }
+.promise-list { background: rgba(255,255,255,0.9); padding:30px; border-radius:25px; margin:20px 0; text-align:left; border:3px solid rgba(255,182,193,0.4); box-shadow:0 10px 30px rgba(255,105,180,0.2); position:relative; z-index:2; }
+.promise-list h3 { color:#8e44ad; text-align:center; margin-bottom:20px; font-family:'Comic Sans MS',cursive; font-size:1.4rem; }
+.promise-item { display:flex; align-items:center; margin:15px 0; font-size:1.1rem; color:#2c3e50; font-family:'Comic Sans MS',cursive; padding:10px; border-radius:15px; background: rgba(255,182,193,0.1); transition: all 0.3s ease; }
+.promise-item:hover { background: rgba(255,182,193,0.2); transform:translateX(10px); }
+.promise-item::before { content:"🌸"; margin-right:15px; font-size:1.5rem; animation:spin 3s linear infinite; }
+@keyframes spin { 0%{transform:rotate(0deg) scale(1);} 50%{transform:rotate(180deg) scale(1.2);} 100%{transform:rotate(360deg) scale(1);} }
+.final-message { font-size:2.2rem; color:white; text-shadow:2px 2px 4px rgba(0,0,0,0.5); margin-top:30px; font-weight:bold; font-family:'Comic Sans MS',cursive; animation:rainbow 3s linear infinite; }
+@keyframes rainbow { 0%{filter:hue-rotate(0deg) drop-shadow(0 0 20px rgba(255,105,180,0.8));} 25%{filter:hue-rotate(90deg) drop-shadow(0 0 20px rgba(142,68,173,0.8));} 50%{filter:hue-rotate(180deg) drop-shadow(0 0 20px rgba(196,69,105,0.8));} 75%{filter:hue-rotate(270deg) drop-shadow(0 0 20px rgba(240,147,251,0.8));} 100%{filter:hue-rotate(360deg) drop-shadow(0 0 20px rgba(255,105,180,0.8));} }
+@media(max-width:600px){.main-title{font-size:2.5rem;}.message-box{padding:20px;}.message-text{font-size:1.2rem;}.final-message{font-size:1.5rem;}}
+form { margin-top:20px; display:flex; flex-direction:column; gap:15px; }
+input, textarea, button { padding:15px; border-radius:15px; border:2px solid rgba(255,182,193,0.5); font-family:'Comic Sans MS', cursive; font-size:1.1rem; }
+button.submit-btn { background: linear-gradient(135deg,#8e44ad,#c44569); color:white; font-weight:bold; cursor:pointer; transition:all 0.3s ease; }
+button.submit-btn:hover { transform:scale(1.05); }
+</style>
+</head>
+<body>
+<div class="hearts" id="hearts"></div>
+<div class="container">
+<h1 class="main-title">I'm So Sorry, My Love 💕</h1>
+<div class="message-box">
+<p class="message-text">
+My dearest, I know I completely broke your trust, and I can't express how truly sorry I am. 
+You gave me clear rules, you warned me about what mattered to you, and I failed you. 
+I was so excited about us that I forgot what YOU needed from me.
+</p>
+<div class="apology-reasons">
+<h3>I'm sorry because...</h3>
+<div class="reason">💔 I broke your trust by telling people about us when you specifically asked me not to</div>
+<div class="reason">😔 I got carried away with my excitement and forgot your feelings and boundaries</div>
+<div class="reason">💭 I kept breaking promises even after you warned me about following your rules</div>
+<div class="reason">🤗 I disrespected something that was really important to you - our privacy</div>
+</div>
+<div class="promise-list">
+<h3>My Promises to You 💜</h3>
+<div class="promise-item">I will respect ALL your boundaries, especially about our privacy</div>
+<div class="promise-item">I will keep our relationship between us until YOU decide otherwise</div>
+<div class="promise-item">I will think before I speak and remember what matters to you</div>
+<div class="promise-item">I will prove that your trust in me isn't misplaced - no more broken promises</div>
+<div class="promise-item">I will ask you before sharing anything about us, always</div>
+</div>
+<div class="interactive-section">
+<p style="font-size:1.3rem;margin-bottom:25px;color:#555;font-family:'Comic Sans MS',cursive;position: relative; z-index:2;">
+I really love you so much, please forgive me for the last time 💜
+</p>
+<button class="forgive-btn" onclick="showForgiveness(event)">I Forgive You ❤️</button>
+<button class="forgive-btn" onclick="showPatience(event)" style="background: linear-gradient(135deg,#8e44ad,#9b59b6);">I Need Time 💜</button>
+</div>
+<div id="forgiveness-message" class="hidden-message">🎉 Thank you for giving me another chance! I know I need to earn back your trust through my actions, not just words. I promise to respect your boundaries and prove that I can be the partner who listens to you and keeps my word. 🎉</div>
+<div id="patience-message" class="hidden-message" style="background: linear-gradient(135deg,#9b59b6,#8e44ad); color:white;">💜 I completely understand why you need time. I broke something precious - your trust - and I know that takes time to rebuild. I'll prove through my actions that I can respect your rules and be someone you can count on. 💜</div>
+
+<!-- Formspree Form -->
+<form action="https://formspree.io/f/movnonld" method="POST">
+<input type="text" name="name" placeholder="Your Name" required>
+<textarea name="message" placeholder="Your Message 💌" required></textarea>
+<button type="submit" class="submit-btn">Send Message 💖</button>
+</form>
+
+</div>
+<p class="final-message">You are my sunshine, my heart, my everything 🌟</p>
+</div>
+
+<script>
+function createHeart(){const heart=document.createElement('div');heart.classList.add('heart');const heartEmojis=['💖','💕','🌸','✨','🦋','💜','🌺','🎀'];heart.innerHTML=heartEmojis[Math.floor(Math.random()*heartEmojis.length)];heart.style.left=Math.random()*100+'vw';heart.style.animationDuration=(Math.random()*2+4)+'s';heart.style.fontSize=(Math.random()*15+20)+'px';document.getElementById('hearts').appendChild(heart);setTimeout(()=>{heart.remove();},6000);}
+setInterval(createHeart,400);
+function showForgiveness(event){if(event)event.preventDefault();document.getElementById('patience-message').style.display='none';document.getElementById('forgiveness-message').style.display='block';for(let i=0;i<50;i++){setTimeout(()=>{createHeart();const sparkle=document.createElement('div');sparkle.classList.add('heart');sparkle.innerHTML='✨';sparkle.style.left=Math.random()*100+'vw';sparkle.style.animationDuration=(Math.random()*2+3)+'s';sparkle.style.fontSize=(Math.random()*10+25)+'px';sparkle.style.color='rgba(255,215,0,0.9)';document.get
