@@ -120,4 +120,9 @@ I really love you so much, please forgive me for the last time 💜
 <script>
 function createHeart(){const heart=document.createElement('div');heart.classList.add('heart');const heartEmojis=['💖','💕','🌸','✨','🦋','💜','🌺','🎀'];heart.innerHTML=heartEmojis[Math.floor(Math.random()*heartEmojis.length)];heart.style.left=Math.random()*100+'vw';heart.style.animationDuration=(Math.random()*2+4)+'s';heart.style.fontSize=(Math.random()*15+20)+'px';document.getElementById('hearts').appendChild(heart);setTimeout(()=>{heart.remove();},6000);}
 setInterval(createHeart,400);
-function showForgiveness(event){if(event)event.preventDefault();document.getElementById('patience-message').style.display='none';document.getElementById('forgiveness-message').style.display='block';for(let i=0;i<50;i++){setTimeout(()=>{createHeart();const sparkle=document.createElement('div');sparkle.classList.add('heart');sparkle.innerHTML='✨';sparkle.style.left=Math.random()*100+'vw';sparkle.style.animationDuration=(Math.random()*2+3)+'s';sparkle.style.fontSize=(Math.random()*10+25)+'px';sparkle.style.color='rgba(255,215,0,0.9)';document.get
+function showForgiveness(event){if(event)event.preventDefault();document.getElementById('patience-message').style.display='none';document.getElementById('forgiveness-message').style.display='block';for(let i=0;i<50;i++){setTimeout(()=>{createHeart();const sparkle=document.createElement('div');sparkle.classList.add('heart');sparkle.innerHTML='✨';sparkle.style.left=Math.random()*100+'vw';sparkle.style.animationDuration=(Math.random()*2+3)+'s';sparkle.style.fontSize=(Math.random()*10+25)+'px';sparkle.style.color='rgba(255,215,0,0.9)';document.getElementById('hearts').appendChild(sparkle);setTimeout(()=>sparkle.remove(),5000);},i*50);}}
+function showPatience(event){if(event)event.preventDefault();document.getElementById('forgiveness-message').style.display='none';document.getElementById('patience-message').style.display='block';}
+for(let i=0;i<5;i++){ setTimeout(createHeart,i*200); }
+</script>
+</body>
+</html>
